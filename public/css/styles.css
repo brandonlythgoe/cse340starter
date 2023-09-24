@@ -1,6 +1,165 @@
 /******* Change Box Model ***************/
+
 *,
 *:before,
 *:after {
   box-sizing: border-box;
+}
+
+/* html {
+  max-width: 1050px;
+  margin: 0 auto;
+  background-image: url('../images/site/checkerboard.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #f0f0f0; 
+  z-index: 1;
+} */
+header {
+  display: flex;
+  justify-content: space-between;
+}
+.siteName {
+  padding: 0 10px;
+  margin: 10px 0;
+}
+.siteName a {
+  font-size: 2rem;
+  color: black;
+}
+a {
+  text-decoration: none;
+}
+#tools {
+  padding: 0 10px;
+  margin: 10px 0;
+}
+#tools a {
+  color: black;
+}
+nav{
+  background-color: black;
+  color: white;
+  font-weight:bold;
+  
+  padding: 10px 20px; 
+  
+}
+nav a {
+  text-decoration: none;
+  color: #fff;
+}
+nav ul {
+  list-style: none;
+  justify-content: space-evenly;
+  padding: 0;
+  margin: 0;
+  display: flex; /* Make the ul a flex container */
+}
+nav li{
+  display:inline;
+  margin-right: 30px;
+ 
+}
+#main {
+  color: #04bbdf;
+  background-color: rgba(248, 239, 239, 0.5);
+  width: 170px;
+  position: relative;
+  left: 20px;
+  top: 160px;
+  z-index: 100;
+}
+h1{
+  margin-left: 1rem;
+  font-size: 1.75rem;
+}
+ h2 {
+  margin: 0px;
+}
+
+ h3 {
+  font-size: 1.2rem;
+  margin-bottom: 2px;
+}
+#car_pic {
+  position: relative;
+  width: 80%;
+}
+  main p{
+    font-weight: bold;
+    padding: 0.2rem;
+    margin: 0;
+
+  }
+button {
+  background-color: #04bbdf;
+  padding: .75rem 1.5rem;
+
+}
+/* GRid Layout */
+/* #upgrades {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 600px;
+} */
+
+
+
+li {
+  margin: 0;
+}
+.upgrades_images{
+  display: grid;
+  grid-template-columns: repeat(2, 2fr);
+}
+
+.flame a, .bumper a, .hub a, .flux  a{
+  color: white;
+  font-weight: bold;
+  
+}
+
+.flame, .bumper, .hub, .flux {
+  background-color:#04bbdf;
+  padding: 1rem;
+  margin: 15px;
+  text-align: center;
+}
+#upgrades_list{
+  text-align: center;
+}
+
+
+.image-wrapper {
+  display: flex;
+}
+
+
+
+/* Large VIEW */
+@media screen and (min-width: 700px) {
+  .upgrades {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    
+  }
+
+  #upgrades_list li {
+   
+    margin: 10px;
+    padding: 5px;
+  
+  }
+  #upgrades_list{
+    margin-top: 2rem;
+  }
+
+  #upgrades_images {
+    
+    margin: 0px;
+    padding: 0px;
+    
+  }
 }
