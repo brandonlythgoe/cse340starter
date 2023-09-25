@@ -7,7 +7,6 @@
 }
 
 /* html {
-  max-width: 1050px;
   margin: 0 auto;
   background-image: url('../images/site/checkerboard.jpg');
   background-size: cover;
@@ -15,10 +14,24 @@
   background-repeat: no-repeat;
   background-color: #f0f0f0; 
   z-index: 1;
-} */
+  padding: 0px 10%;
+}  */
+
+.wrapper {
+  width: 100%;
+  background-color: white;
+  border-bottom: #04bbdf solid 5px;
+  border-left: #04bbdf solid 5px;
+  border-right: #04bbdf solid 5px;
+}
 header {
   display: flex;
+  background-color: white;
   justify-content: space-between;
+  border-top: #04bbdf solid 5px;
+  border-left: #04bbdf solid 5px;
+  border-right: #04bbdf solid 5px;
+  
 }
 .siteName {
   padding: 0 10px;
@@ -145,6 +158,16 @@ li {
     grid-template-columns: 1fr 1fr;
     
   }
+  html {
+    margin: 0 auto;
+    background-image: url('../images/site/checkerboard.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #f0f0f0; 
+    z-index: 1;
+    padding: 0px 10%;
+  } 
 
   #upgrades_list li {
    
@@ -163,3 +186,4 @@ li {
     
   }
 }
+
