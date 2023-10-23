@@ -11,12 +11,12 @@ const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
-const invController = require("./controllers/invController")
-
+const inventoryRoute = require("./routes/inventoryRoute")
+const utilities = require('./utilities/index')
+const errorRoute = require('./routes/errorRoute');
 /* ***********************
  * View Engine and Templates
  *************************/
-
 
 app.set("view engine", "ejs")
 app.use(expressLayouts)
@@ -32,6 +32,16 @@ app.use(static)
  
  *************************/
  app.get("/", baseController.buildHome)
+//  utilities.handleErrors(baseController.buildHome)
+app.use("/inv", inventoryRoute)
+
+
+// app.use('/error', errorRoute);
+
+
+
+ // Index route
+// app.get("/", utilities.handleErrors(baseController.buildHome))
  
 //  app.get("/", function(req, res){
 //   res.render("index", {title: "Home"})
@@ -39,6 +49,33 @@ app.use(static)
 
 // Inventory routes
 app.use("/inv", require ('./routes/inventoryRoute'))
+
+// Error Route?
+
+
+// Error Route
+app.use(async (req, res, next) => {
+  next({status: 404, message: 'Sorry, we appear to have lost that page.'})
+})
+/* ***********************
+* Express Error Handler
+* Place after all other middleware
+*************************/
+app.use(async (err, req, res, next) => {
+  let nav = await utilities.getNav();
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`);
+  let message;
+  if (err.status == 500) {
+    message = err.message;
+  } else {
+    message = 'Oh no! There was a crash.';
+  }
+  res.render("errors/error", {
+    title: err.status || ' 500 Server Error',
+    message,
+    nav
+  });
+});
 /* ***********************
  * Local Server Information
  * Values from .env (environment) file
@@ -52,3 +89,5 @@ const host = process.env.HOST
 app.listen(port, () => {
   console.log(`app listening on ${host}:${port}`)
 })
+
+

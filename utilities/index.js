@@ -59,4 +59,39 @@ Util.buildClassificationGrid = async function(data){
 
 
 
+/* **************************************
+* Custom Vehicle display function
+* ************************************ */
+
+Util.buildInventoryItemHTML = function (itemDetail) {
+  let itemHTML = '';
+
+  if (itemDetail) {
+    itemHTML += '<div class="inventory-detail">';
+    itemHTML += `<img src="${itemDetail.inv_image}" alt="${itemDetail.inv_make} ${itemDetail.inv_model}" />`;
+    itemHTML += '<div class="details">';
+    itemHTML += `<p><strong>Make:</strong> ${itemDetail.inv_make}</p>`;
+    itemHTML += `<p><strong>Model:</strong> ${itemDetail.inv_model}</p>`;
+    itemHTML += `<p><strong>Year:</strong> ${itemDetail.inv_year}</p>`;
+    itemHTML += `<p><strong>Price:</strong> $${new Intl.NumberFormat('en-US').format(itemDetail.inv_price)}</p>`;
+    itemHTML += `<p><strong>Mileage:</strong> ${new Intl.NumberFormat('en-US').format(itemDetail.inv_miles)} miles</p>`;
+    itemHTML += `<p><strong>Color:</strong> ${itemDetail.inv_color}</p>`;
+    itemHTML += `<p><strong>Description:</strong> ${itemDetail.inv_description}</p>`;
+    // Add other details as needed
+    itemHTML += '</div>';
+    itemHTML += '</div>';
+  } else {
+    itemHTML += '<p class="notice">Sorry, the requested vehicle details could not be found.</p>';
+  }
+
+  return itemHTML;
+};
+
+/* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for 
+ * General Error Handling
+ **************************************** */
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
 module.exports = Util

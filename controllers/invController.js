@@ -19,4 +19,24 @@ invCont.buildByClassificationId = async function (req, res, next) {
   })
 }
 
+/* ***************************
+ *  Get inventory item details by inventory_id
+ * ************************** */
+invCont.getInventoryItemDetail = async function (req, res, next) {
+  try {
+    const inventory_id = req.params.invId;
+    const itemDetail = await invModel.getInventoryItemDetail(inventory_id);
+    const formattedItem = utilities.buildInventoryItemHTML(itemDetail);
+    let nav = await utilities.getNav();
+    res.render("./inventory/inventory_detail", {
+      title: `${itemDetail.inv_make} ${itemDetail.inv_model}`,
+      itemDetail: formattedItem,
+      nav,
+    });
+  } catch (error) {
+    console.error("getInventoryItemDetail error " + error);
+    // Handle the error and send an appropriate response
+    res.status(500).send("Internal Server Error");
+  }
+};
 module.exports = invCont
