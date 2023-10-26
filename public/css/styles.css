@@ -6,6 +6,13 @@
   box-sizing: border-box;
 }
 
+body{
+  background-color: white;
+  border-bottom: #04bbdf solid 5px;
+  border-left: #04bbdf solid 5px;
+  border-right: #04bbdf solid 5px;
+}
+
  .siteName {
   
   padding: 2rem;
@@ -30,12 +37,14 @@ a {
 }
 nav{
   background-color: black;
+  align-content: center;
   color: white;
   font-weight:bold;
-  
-  padding: 10px 20px; 
-  
-}
+  font-size: smaller;
+  padding: 10px 0px; 
+  width: 95%;
+  margin: 1px auto; /* Center horizontally */
+  }
 nav a {
   text-decoration: none;
   color: #fff;
@@ -49,7 +58,8 @@ nav ul {
 }
 nav li{
   display:inline;
-  margin-right: 30px;
+  margin-left: 7px;
+  width: 95%;
  
 }
 #main {
@@ -57,8 +67,8 @@ nav li{
   background-color: rgba(248, 239, 239, 0.5);
   width: 170px;
   position: relative;
-  left: 20px;
-  top: 160px;
+  left: 50px;
+  /* top: 160px; */
   z-index: 100;
 }
 h1{
@@ -125,12 +135,19 @@ li {
 .image-wrapper {
   display: flex;
 }
+#top-header {
+  /* display: flex; */
+  background-color: white;
+  /* justify-content: space-between; */
+  border-top: #04bbdf solid 5px;
+}
 
 
 
 /* ******************Product pages***************** */
 #inv-display {
-  background-color: #f0f0f0;
+  /* background-color: white; */
+  /* border: 3px solid black; */
   margin: 5px;
   padding: 5px;
   display: flex;
@@ -139,7 +156,7 @@ li {
 #inv-display li {
   margin: 10px;
   padding: 10px;
-  border: 2rem lightblue solid;
+  border: 2rem #04bbdf solid;
   border-radius: 10px;
   list-style-type: none;
   text-align: center;
@@ -154,25 +171,41 @@ li {
   color: black;
 }
 
-/* *********product page end************** */
-/* ***************individual item **************** */
-
+.inventory-detail{
+  border-radius: 5px;
+  border: 3px black solid;
+  margin: 1rem;
+}
 .inventory-detail img {
   width: fit-content;
+  max-width: 80%;
+  border-radius: 5px;
+  border: 3px black solid;
+  padding: 15px;
+  margin: 1rem;
+ 
 }
+
 .details p {
   margin: 0;
   padding: 8px;
 
 }
 .details p {
-  background-color: lightblue;
-
+  background-color: #04bbdf;
+  border-radius: 5px;
+  border: 1px black solid;
+  margin: 10px;
+  
 }
+  #inv-display img{
+    max-width: 80%;
+  } 
+
 
 
 /* Large VIEW */
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 1000px) {
   .upgrades {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -180,7 +213,7 @@ li {
   }
   html {
     margin: 0 auto;
-    /* background-image: url('../images/site/checkerboard.jpg'); */
+    background-image: url('../images/site/checkerboard.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -188,6 +221,22 @@ li {
     z-index: 1;
     padding: 0px 10%;
   } 
+  nav{
+    background-color: black;
+    align-content: center;
+    color: white;
+    font-weight:bold;
+    font-size: 1.2em;
+    padding: 10px 20px; 
+    width: 80%;
+    margin: 0 auto; /* Center horizontally */
+    }
+    nav li{
+      display:inline;
+      margin-left: 1rem;
+      width: 95%;
+     
+    }
 
   #upgrades_list li {
    
@@ -208,19 +257,9 @@ li {
   .wrapper {
     width: 100%;
     background-color: white;
-    border-bottom: #04bbdf solid 5px;
-    border-left: #04bbdf solid 5px;
-    border-right: #04bbdf solid 5px;
+  
   }
-  header {
-    display: flex;
-    background-color: white;
-    justify-content: space-between;
-    border-top: #04bbdf solid 5px;
-    border-left: #04bbdf solid 5px;
-    border-right: #04bbdf solid 5px;
-    
-  }
+  
   .siteName {
     margin-left: 0.5rem;
    padding-bottom: 1rem;
@@ -237,6 +276,49 @@ li {
     text-align: right;
     padding: 1rem;
     font-size: 1.2em;
+  }
+
+  #inv-display {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Creates a two-column grid */
+    grid-gap: 10px; /* Adjust the gap between items as needed */
+    margin: 5px;
+    padding: 5px;
+  }
+ 
+  .inventory-detail{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Creates a two-column grid */
+    grid-gap: 10px; /* Adjust the gap between items as needed */
+    margin: 5px;
+    padding: 5px;
+    border: 2rem #04bbdf solid;
+  }
+  .inventory-detail img {
+    max-width: 100%;
+    width: fit-content;
+    border-radius: 5px;
+    border: 3px black solid;
+    padding: 5px;
+    margin: 0.1rem;
+   
+  }
+  .inventory-detail{
+    border-radius: 5px;
+    border: 3px black solid;
+   
+  }
+  #inv-display img{
+    max-width: 100%;
+  }
+  #main {
+    color: #04bbdf;
+    background-color: rgba(248, 239, 239, 0.5);
+    width: 200px;
+    position: relative;
+    left: 120px;
+    top: 80px;
+    z-index: 100;
   }
  
 }

@@ -12,7 +12,7 @@ const app = express()
 const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoute")
-const utilities = require('./utilities/index')
+const utilities = require('./utilities/')
 const errorRoute = require('./routes/errorRoute');
 /* ***********************
  * View Engine and Templates
@@ -36,19 +36,19 @@ app.use(static)
 app.use("/inv", inventoryRoute)
 
 
-// app.use('/error', errorRoute);
+app.use('/error', errorRoute);
 
 
 
  // Index route
-// app.get("/", utilities.handleErrors(baseController.buildHome))
+ app.get("/", utilities.handleErrors(baseController.buildHome))
  
 //  app.get("/", function(req, res){
 //   res.render("index", {title: "Home"})
 //  })
 
 // Inventory routes
-app.use("/inv", require ('./routes/inventoryRoute'))
+// app.use("/inv", require ('./routes/inventoryRoute'))
 
 // Error Route?
 
