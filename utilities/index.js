@@ -24,6 +24,25 @@ Util.getNav = async function (req, res, next) {
   return list
 }
 
+
+Util.getDropDown = async function (classification_id = null) {
+  let data = await invModel.getClassifications()
+  let dropdown = '<select name="classification_id" id="classification_id">'
+  dropdown += "<option>Choose a Classification</option>"
+  data.rows.forEach((row) => {
+    dropdown += '<option value="' + row.classification_id + '"'
+    if (
+      classification_id != null && row.classification_id == classification_id
+    ) {
+      dropdown += " selected "
+    }
+    dropdown += ">" + row.classification_name + "</option>"
+  })
+  dropdown += "</select>"
+  return dropdown
+}
+
+
 /* **************************************
 * Build the classification view HTML
 * ************************************ */
@@ -93,5 +112,9 @@ Util.buildInventoryItemHTML = function (itemDetail) {
  * General Error Handling
  **************************************** */
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+Util.handleIntentionalErrors = fn => (req, res, next) => 
+  Promise.resolve(fn(req, res, next)).catch(err => {
+    next({ status: 500, message: err.message });
+  });
 
 module.exports = Util
