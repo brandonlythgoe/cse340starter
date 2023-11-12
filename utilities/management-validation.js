@@ -91,7 +91,7 @@ validate.InventoryRules = () => {
         body("classification_id")
         .isLength({ min: 1 })
         .isNumeric()
-        .withMessage("Oops! We need to know the vehicle id in order to proceed!")
+        .withMessage("Oops!! We need to know the vehicle id in order to proceed!")
     ]
 }
 
