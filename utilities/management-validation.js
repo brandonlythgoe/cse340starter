@@ -26,7 +26,7 @@ validate.ClassificationRules = () => {
 
 validate.ClassificationData = async (req, res, next) => {
   const { classification_name } = req.body
-  const errors = validationResult(req);
+  let errors = []
   errors = validationResult(req)
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav()
@@ -55,7 +55,8 @@ validate.InventoryRules = () => {
         .withMessage("Oops! We need to know the vehicle model in order to proceed!"),
 
       body("inv_year")
-        .isLength({ min: 4, max: 4 })
+        .isLength({ min: 4 })
+        .isLength({ max: 4 })
         .isNumeric()
         .withMessage("Oops! We need to know the vehicle year in order to proceed!"),
 
@@ -65,7 +66,7 @@ validate.InventoryRules = () => {
 
         body("inv_image")
         .isLength({ min: 1 })
-        .withMessage("Oops! We need to have a valid vehicle image in order to proceed!  (jpg, jpeg, png, webp).")
+        .withMessage("Oops! We need to have a valid vehicle image in order to proceed!")
         .matches(".*\\.(jpg|jpeg|png|webp)$"),
 
         body("inv_thumbnail")
@@ -96,7 +97,7 @@ validate.InventoryRules = () => {
 
 validate.InventoryData = async (req, res, next) => {
     const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body
-    const errors = validationResult(req);
+    let errors = []
     errors = validationResult(req)
     if (!errors.isEmpty()) {
       let nav = await utilities.getNav()
@@ -123,3 +124,4 @@ validate.InventoryData = async (req, res, next) => {
 }
 
 module.exports = validate
+
