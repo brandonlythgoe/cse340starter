@@ -14,34 +14,36 @@
     <form action="/inv/inventory" method="post" class="form">
         <p>All Fields are Required</p>
         <label for="inv_make">Vehicle Make</label>
-        <input type="text" name="inv_make" id="inv_make" required value="<%= locals.inv_make %>">
+        <input type="text" name="inv_make" id="inv_make" placeholder="Ex: Hyundai" required value="<%= locals.inv_make %>">
     
         <label for="inv_model">Vehicle Model</label>
-        <input type="text" name="inv_model" id="inv_model"  required value="<%= locals.inv_model %>">
+        <input type="text" name="inv_model" id="inv_model" placeholder="Ex: Sonata" required value="<%= locals.inv_model %>">
     
         <label for="inv_year">Vehicle Year</label>
-        <input type="text" name="inv_year" id="inv_year"  required value="<%= locals.inv_year %>">
+        <input type="number" name="inv_year" id="inv_year" placeholder="Ex: 1999" required value="<%= locals.inv_year %>">
     
         <label for="inv_description">Vehicle Description</label>
-        <textarea name="inv_description" id="inv_description"  required value="<%= locals.inv_description %>"></textarea>
+        <textarea name="inv_description" id="inv_description" placeholder="Ex: The Hyundai Sonata is a midsize sedan known for its sleek design, advanced safety features, and a comfortable interior. Renowned for its reliable performance and fuel efficiency, the Sonata offers a well-rounded driving experience with modern technology and a spacious cabin." required><%= locals.inv_description %></textarea>
     
         <label for="inv_image">Vehicle Image</label>
-        <input type="text" name="inv_image" id="inv_image" value="/images/vehicles/no-image.png" pattern=".*\.(jpg|jpeg|png|webp)$" required value="<%= locals.inv_image %>">
+        <input type="text" name="inv_image" id="inv_image" value="/images/vehicles/no-image.png" pattern=".*\.(jpg|jpeg|png|webp)$" required>
     
         <label for="inv_thumbnail">Vehicle Thumbnail</label>
-        <input type="text" name="inv_thumbnail" id="inv_thumbnail" value="/images/vehicles/no-image-tn.png" pattern=".*\.(jpg|jpeg|png|webp)$" required value="<%= locals.inv_thumbnail %>">
+        <input type="text" name="inv_thumbnail" id="inv_thumbnail" value="/images/vehicles/no-image-tn.png" pattern=".*\.(jpg|jpeg|png|webp)$" required>
     
         <label for="inv_price">Vehicle Price</label>
-        <input type="number" name="inv_price" id="inv_price" required value="<%= locals.inv_price %>">
+        <input type="number" name="inv_price" id="inv_price" placeholder="Ex: 20000" required value="<%= locals.inv_price %>">
     
         <label for="inv_miles">Vehicle Miles</label>
-        <input type="number" name="inv_miles" id="inv_miles"  required value="<%= locals.inv_miles %>">
+        <input type="number" name="inv_miles" id="inv_miles" placeholder="Ex: 80000" required value="<%= locals.inv_miles %>">
     
         <label for="inv_color">Vehicle Color</label>
-        <input type="text" name="inv_color" id="inv_color" required value="<%= locals.inv_color %>">
+        <input type="text" name="inv_color" id="inv_color" placeholder="Ex: Red" required value="<%= locals.inv_color %>">
     
         <label for="classification_id">Vehicle Classification</label>
-        <%- dropdown %>
-        
+        <%- locals.dropdown %>
+        <!-- <select  name="classification_id" id="classification_id">
+    
+        </select> -->
         <button type="submit">Submit</button>
     </form>

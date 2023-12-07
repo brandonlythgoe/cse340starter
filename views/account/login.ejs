@@ -4,7 +4,14 @@
         res.redirect('/')
     } %>
     <%- messages() %>
-    <form action="/account/login" method="post" class="form">
+    <% if (errors) { %>
+        <ul class="warning">
+        <% errors.array().forEach(error => { %>
+            <li><%= error.msg %></li>
+    <%  }) %>
+        </ul>
+    <% } %>
+    <form id="loginForm" action="/account/login" method="post" class="form">
         <label for="account_email">Email:</label>
         <input type="email" name="account_email" id="account_email" required value="<%= locals.account_email %>">
         <br><br>
@@ -15,4 +22,4 @@
         <button type="submit">Login</button>
         <p>No account? <a href="/account/register">Sign-up</a></p>
     </form>
-    <script src="\js\script.js"></script>
+    <script src="/public/js/script.js"></script>

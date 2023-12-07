@@ -69,7 +69,7 @@ invCont.editInventoryView = async function (req, res, next) {
   let dropdown = await utilities.getDropDown(itemData.classification_id)
   console.log(inv_id);
   const itemName = `${itemData.inv_make} ${itemData.inv_model}`
-  res.render("./inventory/edit-inventory", {
+  res.render("./inv/edit-inventory", {
       title: "Edit " + itemName,
       nav,
       dropdown: dropdown,
@@ -122,7 +122,7 @@ invCont.updateInventory = async function (req, res, next) {
     if (updateResult) {
       const itemName = updateResult.inv_make + " " + updateResult.inv_model
       req.flash("notice", `The ${itemName} was successfully updated.`)
-      res.redirect("/inv/")
+      res.redirect("/inv")
     } else {
       let dropdown = await utilities.getDropDown(classification_id)
       const itemName = `${inv_make} ${inv_model}`

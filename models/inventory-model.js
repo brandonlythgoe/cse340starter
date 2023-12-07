@@ -11,40 +11,47 @@ async function getClassifications(){
  *  Get all inventory items and classification_name by classification_id
  * ************************** */
 async function getInventoryByClassificationId(classification_id) {
-  try {
-    const data = await pool.query(
-      `SELECT * FROM public.inventory AS i 
-      JOIN public.classification AS c 
-      ON i.classification_id = c.classification_id 
-      WHERE i.classification_id = $1`,
-      [classification_id]
-    )
-    return data.rows
-  } catch (error) {
-    console.error("getclassificationsbyid error " + error)
+    try {
+      const data = await pool.query(
+        `SELECT * FROM public.inventory AS i 
+        JOIN public.classification AS c 
+        ON i.classification_id = c.classification_id 
+        WHERE i.classification_id = $1`,
+        [classification_id]
+      )
+      return data.rows
+    } catch (error) {
+      console.error("getclassificationsbyid error " + error)
+    }
   }
-}
 
 /* ***************************
- *  Get all classification data
+ *  Get all Inv data
  * ************************** */
 // async function getInventoryItem(){
 //   return await pool.query("SELECT * FROM public.inventory ORDER BY inv_make")
 // }
 
+/* ***************************
+ *  Get details for a specific inventory item by inventory_id
+ * ************************** */
 async function getInventoryItemDetail(inventory_id) {
   try {
     const data = await pool.query(
       `SELECT * FROM public.inventory WHERE inv_id = $1`,
       [inventory_id]
     );
-    return data.rows[0]; // Assuming inv_id is unique, so only one row should be returned
+    console.log(inventory_id);
+    return data.rows[0];
   } catch (error) {
     console.error("getInventoryItemDetail error " + error);
     throw error;
   }
 }
 
+/* *****************************
+*   Add new classififcation
+* *************************** */
 async function AddClassification(classification_name){
   try {
     const sql = "INSERT INTO classification (classification_name) VALUES ($1) RETURNING *"
@@ -64,6 +71,9 @@ async function checkExistingName(classification_name) {
   }
 }
 
+/* *****************************
+*   Add new inventory
+* *************************** */
 async function AddInventory(inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id){
   try {
     const sql = "INSERT INTO inventory (inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *"
@@ -73,5 +83,54 @@ async function AddInventory(inv_make, inv_model, inv_year, inv_description, inv_
   }
 }
 
-module.exports = { getClassifications, getInventoryByClassificationId, getInventoryItemDetail, AddClassification, checkExistingName, AddInventory };
+/* *****************************
+*   update inventory
+* *************************** */
+async function updateInventory( 
+  inv_id,
+  inv_make,
+  inv_model,
+  inv_description,
+  inv_image,
+  inv_thumbnail,
+  inv_price,
+  inv_year,
+  inv_miles,
+  inv_color,
+  classification_id
+  ){
+  try {
+    const sql = "UPDATE public.inventory SET inv_make = $1, inv_model = $2, inv_description = $3, inv_image = $4, inv_thumbnail = $5, inv_price = $6, inv_year = $7, inv_miles = $8, inv_color = $9, classification_id = $10 WHERE inv_id = $11 RETURNING *"
+    const data = await pool.query(sql, [ 
+      inv_make,
+      inv_model,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_year,
+      inv_miles,
+      inv_color,
+      classification_id,
+      inv_id
+    ])
+    return data.rows[0]
+  } catch (error) {
+    return error.message
+  }
+}
 
+/* *****************************
+*   delete inventory
+* *************************** */
+async function deleteInventory(inv_id){
+  try {
+    const sql = "DELETE FROM public.inventory WHERE inv_id = $1 RETURNING *"
+    const data = await pool.query(sql, [inv_id])
+    return data.rows[0]
+  } catch (error) {
+    return error.message
+  }
+}
+
+module.exports = { getClassifications, getInventoryByClassificationId, getInventoryItemDetail, AddClassification, checkExistingName, AddInventory, updateInventory, deleteInventory }

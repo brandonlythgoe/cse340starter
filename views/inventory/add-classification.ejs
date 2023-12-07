@@ -13,7 +13,7 @@
     <% } %>
     <form action="/inv/classification" method="post" class="form">
         <label for="classification_name">New Classification Name</label>
-        <input type="text" name="classification_name" id="classificationName" required pattern="[a-zA-Z0-9]+" value="<%= locals.classification_name %>">
-        <div><p>Classification name must NOT contains any spaces or special characters.</p></div>
+        <input type="text" name="classification_name" id="classification_name" required pattern="[a-zA-Z0-9]+" value="<%= locals.classification_name %>">
+        <div><p>Classification name must NOT contain any spaces or special characters.</p></div>
         <button type="submit">Submit</button>
     </form>

@@ -41,6 +41,109 @@ async function buildAccountManagement(req, res, next) {
 }
 
 /* ****************************************
+*  Deliver manage account info view
+* *************************************** */
+async function buildManageAccountInfo(req, res, next) {
+  let nav = await utilities.getNav();
+  const account_id = parseInt(req.params.account_id);
+  const accountData = await accountModel.getAccountById(account_id);
+  try {
+    res.render("account/manageInfo", {
+        title: "Edit Account Info",
+        nav,
+        errors: null,
+        account_id: accountData.account_id,
+        account_firstname: accountData.account_firstname,
+        account_lastname: accountData.account_lastname,
+        account_email: accountData.account_email,
+    })
+  } catch (error) {
+    error.status = 500;
+    console.error(error.status);
+    next(error);
+  }
+}
+
+/* ****************************************
+*  Edit account info
+* *************************************** */
+async function updateAccount(req, res, next) {
+  let nav = await utilities.getNav();
+  try{
+    const { 
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email
+    } = req.body
+    const updateResult = await accountModel.updateAccount(
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email
+    )
+    if (updateResult) {
+      const accountData = await accountModel.getAccountById(account_id);
+      const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
+      res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
+      req.flash("notice", "The update was successful.");
+      res.redirect("/account/");
+    } else {
+      req.flash("warning", "Sorry, the addition failed.");
+      res.status(501).render("./account/manageInfo", {
+        title: "Edit Account Info",
+        nav,
+        errors: null,
+        account_id: accountData.account_id,
+        account_firstname: accountData.account_firstname,
+        account_lastname: accountData.account_lastname,
+        account_email: accountData.account_email,
+      });
+    }
+  } catch (error) {
+    error.status = 500;
+    console.error(error.status);
+    next(error);
+  }
+}
+
+/* ****************************************
+*  Update Password
+* *************************************** */
+async function updatePassword(req, res, next) {
+  let nav = await utilities.getNav();
+  const { account_id, account_password } = req.body;
+  let hashedPassword;
+  try {
+    hashedPassword = await bcrypt.hashSync(account_password, 10);
+    const updatePassword = await accountModel.updatePassword(
+      account_id,
+      hashedPassword
+    );
+    if (updatePassword) {
+      req.flash("notice", "The update was successful.");
+      res.redirect("/account/");
+    } else {
+      req.flash("warning", "Sorry, the addition failed.");
+      res.status(501).render("./account/manageInfo", {
+        title: "Edit Account Info",
+        nav,
+        errors: null,
+        account_id: accountData.account_id,
+      });
+    }
+  } catch (error) {
+    req.flash("warning", "Sorry, the addition failed.");
+    res.status(501).render("./account/manageInfo", {
+      title: "Edit Account Info",
+      nav,
+      errors: null,
+      account_id: accountData.account_id,
+    });
+  }
+}
+
+/* ****************************************
 *  Process Registration
 * *************************************** */
 async function registerAccount(req, res) {
@@ -117,4 +220,32 @@ async function accountLogin(req, res) {
   }
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement }
+/* ****************************************
+ *  Logout
+ * ************************************ */
+// async function logout(req, res) {
+//   utilities.logout(req, res, next);
+//   req.flash("notice", "You have been logged out.");
+//   return res.redirect("/");
+// }
+async function logout(req, res) {
+  try {
+    res.clearCookie("jwt");
+    req.flash("notice", "You have been logged out.");
+    res.redirect("/");
+  } catch (error) {
+    return new Error('Access Forbidden')
+  }
+}
+
+module.exports = { 
+  buildLogin, 
+  buildRegister, 
+  registerAccount, 
+  accountLogin, 
+  buildAccountManagement,
+  buildManageAccountInfo,
+  updateAccount,
+  updatePassword,
+  logout
+ };

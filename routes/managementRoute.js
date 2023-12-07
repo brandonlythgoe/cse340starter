@@ -4,20 +4,20 @@ const managementController = require("../controllers/managementController")
 const utilities = require("../utilities")
 const addValidate = require('../utilities/management-validation')
 
-router.get("/", utilities.handleErrors(managementController.buildManagement))
-router.get("/classification", utilities.handleErrors(managementController.buildAddClassification))
-router.get("/inventory", utilities.handleErrors(managementController.buildAddInventory))
+router.get("/", utilities.checkAccountAccess, utilities.handleErrors(managementController.buildManagement))
+router.get("/classification", utilities.checkAccountAccess, utilities.handleErrors(managementController.buildAddClassification))
+router.get("/inventory", utilities.checkAccountAccess, utilities.handleErrors(managementController.buildAddInventory))
 
 router.post(
     "/classification", 
-    addValidate.ClassificationRules(),
-    addValidate.ClassificationData,
+    addValidate.newClassificationRules(),
+    addValidate.newClassificationData,
     utilities.handleErrors(managementController.AddClassification)
 )
 router.post(
     "/inventory",
-    addValidate.InventoryRules(),
-    addValidate.InventoryData,
+    addValidate.newInventoryRules(),
+    addValidate.newInventoryData,
     utilities.handleErrors(managementController.AddInventory)
 )
 
