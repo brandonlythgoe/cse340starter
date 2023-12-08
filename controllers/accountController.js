@@ -230,6 +230,8 @@ async function accountLogin(req, res) {
 // }
 async function logout(req, res) {
   try {
+    delete res.locals.accountData
+    delete res.locals.loggedin
     res.clearCookie("jwt");
     req.flash("notice", "You have been logged out.");
     res.redirect("/");

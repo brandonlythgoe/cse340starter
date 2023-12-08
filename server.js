@@ -63,10 +63,10 @@ app.use(static)
 //Index Route
 app.get("/", utilities.handleErrors(baseController.buildHome))
 //Inventory routes
-app.use("/inventory", inventoryRoute)
+app.use("/inv", inventoryRoute)
 app.use("/error", errorRoute)
 app.use("/account", accountRoute)
-app.use("/inv", managementRoute)
+
 
 app.use(async (req, res, next) => {
   next ({status: 404, message: 'Sorry, we appear to have lost that page.'})

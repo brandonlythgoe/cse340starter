@@ -11,7 +11,7 @@
 <%  }) %>
     </ul>
 <% } %>
-<h2>Welcome <%= locals.accountData.account_firstname %></h2>
+<h2>Welcome <% if (locals.accountData) { %> <%= locals.accountData.account_firstname %> <%}%></h2>
 <% if (locals.accountData.account_type == "Admin" || locals.accountData.account_type == "Employee") { %>
     <h3>Manage Inventory</h3>
     <p><a href="/inv">Manage Classification and Inventory</a></p>

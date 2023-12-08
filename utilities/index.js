@@ -167,24 +167,12 @@ Util.checkAccountAccess = (req, res, next) => {
           res.clearCookie("jwt")
           return res.redirect("/account/login")
         }
-        if (accountData.account_type === "Admin" || accountData.account_type === "Employee") {
           res.locals.accountData = accountData;
           res.locals.loggedin = 1;
-          next();
-        } else {
-          req.flash("Please log in as an Admin or Employee to access this page.");
-          res.clearCookie("jwt");
-          return res.redirect("/account/login");
-        }
-        
-        res.locals.accountData = accountData
-        res.locals.loggedin = 1
-        next()
-      }
-    );
+          next()
+      })
   } else {
-    req.flash("Please log in.")
-    return res.redirect("/account/login");
+    next()
   }
 };
 
