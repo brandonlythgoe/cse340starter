@@ -1,7 +1,7 @@
 const invModel = require("../models/inventory-model")
 // const managementModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
-const managementModel = require("../models/inventory-model")
+
 
 const invCont = {}
 
