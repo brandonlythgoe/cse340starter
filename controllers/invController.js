@@ -285,7 +285,7 @@ invCont.buildAddClassification = async function (req, res, next) {
 invCont.AddClassification = async function (req, res) {
     let nav = await utilities.getNav()
     const { classification_name } = req.body
-    const AddClassResult = await managementModel.AddClassification(classification_name)
+    const AddClassResult = await invModel.AddClassification(classification_name)
     if (AddClassResult) {
         req.flash(
             "notice",
@@ -327,7 +327,7 @@ invCont.AddInventory = async function (req, res) {
     let nav = await utilities.getNav()
     let dropdown = await utilities.getDropDown()
     const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body
-    const AddInvResult = await managementModel.AddInventory(
+    const AddInvResult = await invModel.AddInventory(
         inv_make, 
         inv_model, 
         inv_year, 
@@ -344,7 +344,7 @@ invCont.AddInventory = async function (req, res) {
             "notice",
             `You added a new Inventory Item!`
         )
-        res.status(201).render("inv/management", {
+        res.status(201).render("/", {
             title: "Management",
             nav,
             dropdown,
