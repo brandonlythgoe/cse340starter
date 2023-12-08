@@ -275,6 +275,29 @@ li {
   display: flex;
 }
 
+.manage-inv select {
+  /* width: 50%; */
+  margin: 5px 10px;
+  padding: 5px;
+  border: 2px solid var(--accent);
+  border-radius: 10px;
+}
+#inventoryDisplay {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  margin: 10px;
+}
+#inventoryDisplay thead tr th {
+  padding: 10px;
+}
+#inventoryDisplay tbody tr, #inventoryDisplay tbody tr td {
+  border: 1px solid grey;
+  padding: 8px;
+}
+
+
+
+
 /* Large VIEW */
 @media screen and (min-width: 1000px) {
   .upgrades {

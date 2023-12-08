@@ -68,7 +68,7 @@ invCont.editInventoryView = async function (req, res, next) {
   let nav = await utilities.getNav()
   const itemData = await invModel.getInventoryItemDetail(inv_id)
   let dropdown = await utilities.getDropDown(itemData.classification_id)
-  console.log(inv_id);
+  // console.log(inv_id);
   const itemName = `${itemData.inv_make} ${itemData.inv_model}`
   res.render("./inv/edit-inventory", {
       title: "Edit " + itemName,
@@ -156,7 +156,7 @@ invCont.deleteInventoryView = async function (req, res, next) {
   let nav = await utilities.getNav()
   const itemData = await invModel.getInventoryItemDetail(inv_id)
   let dropdown = await utilities.getDropDown(itemData.classification_id)
-  console.log(inv_id);
+  // console.log(inv_id);
   const itemName = `${itemData.inv_make} ${itemData.inv_model}`
   res.render("./inventory/delete-confirm", {
       title: "Delete " + itemName,
@@ -248,7 +248,7 @@ invCont.deleteInventory = async function (req, res, next) {
 invCont.buildManagement = async function (req, res, next) {
     let nav = await utilities.getNav()
     const dropdown = await utilities.getDropDown()
-    console.log(res.locals.loggedin)
+   
     if(res.locals.loggedin = 1){
         res.render("inventory/management", {
             title: "Management",
